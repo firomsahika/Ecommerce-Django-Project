@@ -8,6 +8,7 @@ from .forms import LoginForm
 app_name = 'playground'
 
 urlpatterns = [
+    path('hello/', views.say_hello, name='say_hello'),
     # path('', views.index, name="index"),
     # path('contact/', views.contact, name="contact"),
     # path('signup/', views.signup, name='signup'),

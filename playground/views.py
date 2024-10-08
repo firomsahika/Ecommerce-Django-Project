@@ -1,32 +1,16 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models import Q,F
+from store.models import Product,OrderItem,Order,Customer
 
+def say_hello(request):
+    # Get the last five orders with their customer and items (including Product)
+    
+    queryset = OrderItem.objects.select_related('product').order_by('-order__placed_at')[:10]
 
-
-# from .forms import SignUpForm
-
-# def index(request):
-#     items = Item.objects.filter(is_sold=False)[0:6]
-#     categories = Category.objects.all()
-#     return render(request, 'core/index.html', {
-#         'categories':categories,
-#         'items':items,
-#     })
-
-# def contact(request):
-#     return render(request, 'core/contact.html')
-
-# def signup(request):
-#     if request.method == 'POST':
-#         form = SignUpForm(request.POST)
-
-#         if form.is_valid():
-#             form.save()
-
-#             return redirect('/login/')
-#     else:
-#         form = SignUpForm()
-
-#     return render(request, 'core/signup.html', {
-#         'form':form,
-#     })
+    
+    
+   
+    return render(request, 'core/index.html',{
+        'orderitems': queryset,
+    })
